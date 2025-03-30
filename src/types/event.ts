@@ -1,4 +1,4 @@
-import type {ChampionName, ItemId, Timestamp} from './match';
+import type {ChampionName, ItemId, Seconds, Timestamp} from './match';
 
 interface DamageMetadata {
     basic: boolean;
@@ -9,7 +9,7 @@ interface DamageMetadata {
     spellName: string;
     spellSlot: number;
     trueDamage: number;
-    type: 'OTHER' | 'MINION' | 'MONSTER';
+    type: 'OTHER' | 'MINION' | 'MONSTER' | 'TOWER';
 }
 
 interface Position {
@@ -24,7 +24,7 @@ type EliteMonsterType = 'HORDE' | 'DRAGON' | 'RIFTHERALD' | 'ATAKHAN' | 'BARON';
 type EliteMonsterSubtype = 'FIRE_DRAGON' | 'CHEMTECH_DRAGON' | 'HEXTECH_DRAGON'; // TODO: more monster subtypes
 
 export interface BaseEvent {
-    timestamp: Timestamp;
+    timestamp: Seconds;
     type: string;
 }
 
@@ -33,6 +33,12 @@ export interface ItemPurchaseEvent extends BaseEvent {
     itemId: ItemId;
     participantId: number;
     type: 'ITEM_PURCHASED';
+}
+
+export interface ItemSellEvent extends BaseEvent {
+    itemId: ItemId;
+    participantId: number;
+    type: 'ITEM_SOLD';
 }
 
 export interface ItemUndoEvent extends BaseEvent {
@@ -60,6 +66,12 @@ export interface WardPlaceEvent extends BaseEvent {
     creatorId: number;
     wardType: string;
     type: 'WARD_PLACED';
+}
+
+export interface WardKillEvent extends BaseEvent {
+    killerId: number;
+    type: 'WARD_KILL';
+    wardType: string;
 }
 
 export interface ItemDestroyEvent extends BaseEvent {
@@ -104,6 +116,32 @@ export interface TurretPlateDestroyedEvent extends BaseEvent {
     type: 'TURRET_PLATE_DESTROYED'
 }
 
+export interface BuildingKillEvent extends BaseEvent {
+    assistingParticipantIds?: number[];
+    bounty: number;
+    buildingType: string;
+    killerId: number;
+    laneType: LaneType;
+    position: Position;
+    teamId: TeamId;
+    type: 'BUILDING_KILL';
+}
+
+export interface TurretKillEvent extends BuildingKillEvent {
+    buildingType: 'TOWER_BUILDING';
+    towerType: 'OUTER_TURRET' | 'INNER_TURRET' | 'BASE_TURRET' | 'NEXUS_TURRET';
+}
+
+export interface InhibitorKillEvent extends BuildingKillEvent {
+    buildingType: 'INHIBITOR_BUILDING';
+}
+
+export interface ObjectiveBountyPrestart extends BaseEvent {
+    actualStartTime: number; // seconds?
+    teamId: TeamId;
+    type: 'OBJECTIVE_BOUNTY_PRESTART';
+}
+
 export interface EliteMonsterKillEvent extends BaseEvent {
     assistingParticipantIds: number[];
     bounty: number;
@@ -113,4 +151,18 @@ export interface EliteMonsterKillEvent extends BaseEvent {
     monsterType: EliteMonsterType;
     position: Position;
     type: 'ELITE_MONSTER_KILL';
+}
+
+// TODO: look into this
+export interface DragonSoulEvent extends BaseEvent {
+    name: string;
+    teamId: TeamId;
+    type: 'DRAGON_SOUL_GIVEN';
+}
+
+export interface GameEndEvent extends BaseEvent {
+    gameId: number;
+    realTimestamp: Timestamp;
+    winningTeam: TeamId;
+    type: 'GAME_END';
 }
