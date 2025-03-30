@@ -11,6 +11,7 @@ export type GameType = 'MATCHED_GAME' | 'TUTORIAL_GAME' | 'CUSTOM_GAME';
 export type QueueId = keyof typeof QUEUE_ID_MAP;
 export type PlatformId = 'BR1' | 'EUN1' | 'EUW1' | 'JP1' | 'KR' | 'LA1' | 'LA2' | 'NA1' | 'OC1' | 'TR1' | 'RU' | 'PH2' | 'SG2' | 'TH2' | 'TW2' | 'VN2';
 export type ChampionId = keyof typeof CHAMPION_MAP;
+export type ChampionName = typeof CHAMPION_MAP[keyof typeof CHAMPION_MAP]
 export type ItemId = keyof typeof ITEM_MAP;
 export type Feat = 'EPIC_MONSTER_KILL' | 'FIRST_BLOOD' | 'FIRST_TURRET';
 export type FeatState = 0 | 1001;
