@@ -1,4 +1,12 @@
-import type {ChampionName, ItemId, Seconds, Timestamp} from './match';
+import type {ItemId} from './items';
+import type {ChampionName} from './champions';
+import type {Position, Seconds, Timestamp} from './shared';
+
+type TeamId = 100 | 200;
+type LaneType = 'TOP_LANE' | 'MID_LANE' | 'BOT_LANE';
+
+type EliteMonsterType = 'HORDE' | 'DRAGON' | 'RIFTHERALD' | 'ATAKHAN' | 'BARON'; // TODO: check baron type
+type EliteMonsterSubtype = 'FIRE_DRAGON' | 'CHEMTECH_DRAGON' | 'HEXTECH_DRAGON'; // TODO: more monster subtypes
 
 interface DamageMetadata {
     basic: boolean;
@@ -12,22 +20,30 @@ interface DamageMetadata {
     type: 'OTHER' | 'MINION' | 'MONSTER' | 'TOWER';
 }
 
-interface Position {
-    x: number;
-    y: number;
-}
-
-type TeamId = 100 | 200;
-type LaneType = 'TOP_LANE' | 'MID_LANE' | 'BOT_LANE';
-
-type EliteMonsterType = 'HORDE' | 'DRAGON' | 'RIFTHERALD' | 'ATAKHAN' | 'BARON'; // TODO: check baron type
-type EliteMonsterSubtype = 'FIRE_DRAGON' | 'CHEMTECH_DRAGON' | 'HEXTECH_DRAGON'; // TODO: more monster subtypes
+export type MatchEvent = ItemPurchaseEvent
+    | ItemSellEvent
+    | ItemUndoEvent
+    | LevelUpEvent
+    | SkillLevelUpEvent
+    | WardPlaceEvent
+    | WardKillEvent
+    | ItemDestroyEvent
+    | ChampionKillEvent
+    | ChampionSpecialKillEvent
+    | FeatUpdateEvent
+    | TurretPlateDestroyedEvent
+    | BuildingKillEvent
+    | TurretKillEvent
+    | InhibitorKillEvent
+    | ObjectiveBountyPrestart
+    | EliteMonsterKillEvent
+    | DragonSoulEvent
+    | GameEndEvent
 
 export interface BaseEvent {
     timestamp: Seconds;
     type: string;
 }
-
 
 export interface ItemPurchaseEvent extends BaseEvent {
     itemId: ItemId;
