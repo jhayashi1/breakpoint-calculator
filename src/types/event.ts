@@ -36,6 +36,7 @@ export type MatchEvent = ItemPurchaseEvent
     | TurretKillEvent
     | InhibitorKillEvent
     | ObjectiveBountyPrestart
+    | ObjectiveBountyFinish
     | EliteMonsterKillEvent
     | DragonSoulEvent
     | GameEndEvent
@@ -156,6 +157,11 @@ export interface ObjectiveBountyPrestart extends BaseEvent {
     actualStartTime: number; // seconds?
     teamId: TeamId;
     type: 'OBJECTIVE_BOUNTY_PRESTART';
+}
+
+export interface ObjectiveBountyFinish extends BaseEvent {
+    teamId: TeamId;
+    type: 'OBJECTIVE_BOUNTY_FINISH';
 }
 
 export interface EliteMonsterKillEvent extends BaseEvent {

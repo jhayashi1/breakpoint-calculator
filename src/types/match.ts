@@ -51,26 +51,18 @@ export interface MatchInfoResponse {
 }
 
 export interface MatchTimelineResponse {
-    data: {
-        url: string;
-        headers: Record<string, string>;
-        request_body: string;
-        data: {
-            metadata: MatchMetadata;
-            info: {
-                endOfGameResult: GameResult,
-                frameInterval: number;
-                frames: {
-                    events: MatchEvent[];
-                    participantFrames: Record<number, ParticipantFrame>;
-                }[];
-            };
-            gameId: number;
-            participants: {
-                participantId: number;
-                puuid: PlayerId;
-            }[]
-
-        }
-    }
+    metadata: MatchMetadata;
+    info: {
+        endOfGameResult: GameResult,
+        frameInterval: number;
+        frames: {
+            events: MatchEvent[];
+            participantFrames: Record<number, ParticipantFrame>;
+        }[];
+    };
+    gameId: number;
+    participants: {
+        participantId: number;
+        puuid: PlayerId;
+    }[]
 }
