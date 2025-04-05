@@ -30,7 +30,7 @@ export interface MatchInfoResponse {
         gameType: GameType,
         gameVersion: string,
         mapId: number,
-        participants: Record<string, string>[],
+        participants: Record<string, string | number | boolean>[],
         platformId: PlatformId,
         queueId: QueueId,
         teams: {
